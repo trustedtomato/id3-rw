@@ -39,7 +39,7 @@ for (const metadataInput of metadataInputs) {
 
   metadataInput.oninput = () => {
     const isChanged =
-      !!metadataInput.dataset.originalValue &&
+      typeof metadataInput.dataset.originalValue !== 'undefined' &&
       metadataInput.dataset.originalValue !== metadataInput.value
     
     metadataInput.dataset.isChanged = isChanged
@@ -66,9 +66,12 @@ metadataEditor.addEventListener('submit', async e => {
     if (metadataInput.dataset.isChanged !== 'true') {
       continue
     }
-    tagController['set_' + metadataInput.dataset.name](
-      metadataInput.value
-    )
+    const value = metadataInput.value.trim()
+    if (value === '') {
+      tagController['remove_' + metadataInput.dataset.name](value)
+    } else {
+      tagController['set_' + metadataInput.dataset.name](value)
+    }
   }
 
   downloadBlob(
