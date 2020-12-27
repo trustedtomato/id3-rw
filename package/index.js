@@ -55,7 +55,7 @@ async function create_tag_controller_from (stream) {
 }
 
 async function get_metadata_from (stream) {
-  const tagController = create_tag_controller_from(stream)
+  const tagController = await create_tag_controller_from(stream)
   const metadata = tagController.get_metadata()
   tagController.free()
   return metadata
