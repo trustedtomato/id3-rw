@@ -1,67 +1,67 @@
 # id3-rw
 Insanely quick ID3 reading & writing for JavaScript powered by WebAssembly.
 
-## Supported metadata types
-- [ ] ID3v2 (mp3)
-  - [x] read
-  - [ ] write
+![Screenshot of id3-rw in action.](./demo.gif)
 
 ## Usage
 
-### Getting audio metadata
+### Getting metadata
 ```javascript
-import { get_audio_metadata } from "id3-rw"
+import { get_metadata_from } from "id3-rw"
 
 const url = 'https://upload.wikimedia.org/wikipedia/commons/b/bd/%27Tis_a_faded_picture_by_Florrie_Forde.mp3'
 
 fetch(url).then(async response => {
   const stream = response.body
-  const metadata = await get_audio_metadata(stream)
+  const metadata = await get_metadata_from(stream)
   console.log(metadata)
-  // { artist: "Florrie Forde", title: "'Tis a faded picture", album: "Edison Amberol: 12255" }
+  // → { artist: "Florrie Forde", title: "'Tis a faded picture", album: "Edison Amberol: 12255" }
 
   // IMPORTANT! Always remember to destroy the metadata
   // after you've got the properties you need,
   // else you'll get a memory leak!
   metadata.free()
 })
-
-console.log(metadata)
 ```
 
 ### Modifying audio metadata
 ```javascript
-import { TagController } from "id3-rw"
+import { create_tag_controller_from } from "id3-rw"
 
-const stream = fetch('https://upload.wikimedia.org/wikipedia/commons/b/bd/%27Tis_a_faded_picture_by_Florrie_Forde.mp3')
-const metadataController = TagController.from(stream)
+fetch('https://upload.wikimedia.org/wikipedia/commons/b/bd/%27Tis_a_faded_picture_by_Florrie_Forde.mp3').then(async response => {
+  const stream = response.body
 
-// Getting metadata using the controller API
-const metadata = metadataController.get_metadata()
-console.log(metadata)
-// { artist: "Florrie Forde", title: "'Tis a faded picture", album: "Edison Amberol: 12255" }
-metadata.free()
+  // Note that create_tag_controller_from only reads the stream until the tag is read (not the entire file),
+  // which makes it fast, but when we want to obtain the modified MP3,
+  // we have to use the put_tag_into method with the full file's buffer (see below)
+  const tagController = create_tag_controller_from(stream)
 
-// Changing the metadata
-metadataController.setYear("1910")
+  // Getting metadata using the controller API
+  const metadata = tagController.get_metadata()
+  console.log(metadata)
+  // → { artist: "Florrie Forde", title: "'Tis a faded picture", album: "Edison Amberol: 12255" }
+  metadata.free()
 
-// Getting the resulting Uint8Array, which can be used with the File System API 
-const uint8Array = metadataController.get_uint8array()
+  // Changing the metadata
+  tagController.set_year(1910)
 
-// Getting the resulting Uint8Array in a Blob, which can be used as the content for a download
-const blob = metadataController.get_blob()
+  // Getting the resulting Uint8Array (the tagged file's buffer),
+  // which can be used with the File System API or for a download
+  const buffer = new Uint8Array(await response.arrayBuffer())
+  const taggedBuffer = tagController.put_tag_into(buffer)
 
-// IMPORTANT! Don't forget to destroy the metadataController!
-metadataController.free()
+  // IMPORTANT! Don't forget to destroy the tagController!
+  tagController.free()
+})
 ```
 
-## Performance
-I tested it on my collection of 1644 songs.
-A single acquirement of metadata seems to take about 1 ms.
-The mode is 0.44 ms, and it's pretty consistently between 2 and 0.3 ms.
-There are occasional outliers like 10 ms or even 13 ms, but they shouldn't
-be a big concern, they very rarely occur.
-The big thing which this library has against others is that it
-doesn't utilise the garbage collector thanks to WebAssembly,
-so theoretically an infinite amount of files can be processed without a fuss.
-My whole library gets processed in 6 seconds, which includes the file I/O too.
+### Contributing
+Clone this repository. You should build the Rust project by running `build.sh`.
+To run the examples locally, you need to `cd` into `www`, run `npm install` then `npm start`.
+Now you should be able to access the examples at `localhost:8080`.
+
+If you have any questions, feel free to open an issue!
+
+### Acknowledgement
+This library uses a patched version of the [rust-id3](https://github.com/polyfloyd/rust-id3) library,
+so most of the hard work was done by its developer [polyfloyd](https://github.com/polyfloyd). Thank you!
