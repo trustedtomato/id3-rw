@@ -17,8 +17,8 @@ const initMetadataEditor = (tagController) => {
   const metadata = tagController.get_metadata()
   for (const metadataInput of metadataInputs) {
     const value = metadata[metadataInput.dataset.name]
-    metadataInput.dataset.originalValue = value || ''
-    metadataInput.value = value || ''
+    metadataInput.dataset.originalValue = (value || '').trim()
+    metadataInput.value = (value || '').trim()
 
     // Trigger removing the "changed" labels
     if (metadataInput.oninput) {
@@ -40,7 +40,7 @@ for (const metadataInput of metadataInputs) {
   metadataInput.oninput = () => {
     const isChanged =
       typeof metadataInput.dataset.originalValue !== 'undefined' &&
-      metadataInput.dataset.originalValue !== metadataInput.value
+      metadataInput.dataset.originalValue !== metadataInput.value.trim()
     
     metadataInput.dataset.isChanged = isChanged
     isChangedElement.style.display = isChanged ? 'inline' : 'none'
