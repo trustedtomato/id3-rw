@@ -1,4 +1,4 @@
-import { get_audio_metadata } from 'id3-rw'
+import { get_metadata_from } from 'id3-rw'
 
 const selectButton = document.getElementById('select')
 const trackList = document.getElementById('tracks')
@@ -18,7 +18,7 @@ selectButton.addEventListener('click', async () => {
     if (entry.kind === 'file') {
       const file = await entry.getFile()
       const stream = await file.stream()
-      const metadata = await get_audio_metadata(stream)
+      const metadata = await get_metadata_from(stream)
       const trackListItem = document.createElement('div')
       trackListItem.classList.add('track');
       
