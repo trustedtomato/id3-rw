@@ -1,0 +1,9 @@
+{
+  "name": "audio-metadata",
+  "collaborators": [
+    "Tamas Halasi <trusted.tomato@gmail.com>"
+  ],
+  "version": "0.1.0",
+  "module": "index.js",
+  "sideEffects": false
+}

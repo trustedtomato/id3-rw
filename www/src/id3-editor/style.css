@@ -1,0 +1,15 @@
+ul {
+  margin: 0;
+}
+
+li {
+  margin-top: 4px;
+}
+
+#download {
+  margin-top: 8px;
+}
+
+#metadata-editor {
+  display: none;
+}
