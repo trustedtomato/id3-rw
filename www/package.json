@@ -6,7 +6,8 @@
   "scripts": {
     "build": "webpack",
     "start": "webpack serve",
-    "test": "jest"
+    "test": "HEADLESS=false jest",
+    "test:ci": "HEADLESS=true jest"
   },
   "repository": {
     "type": "git",

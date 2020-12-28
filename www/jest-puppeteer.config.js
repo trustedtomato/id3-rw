@@ -1,6 +1,6 @@
 module.exports = {
   launch: {
-    headless: false,
+    headless: process.env.HEADLESS !== 'false',
   },
   server: {
     command: 'webpack serve',
