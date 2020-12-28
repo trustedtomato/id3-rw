@@ -29,6 +29,9 @@ jobs:
     - uses: jetli/wasm-pack-action@v0.3.0
     - name: Build Rust project
       run: wasm-pack build --out-dir 'package/wasm' --release
+    - name: Install dependencies in www directory
+      run: npm install
+      working-directory: ./www
     - name: Do a test in the www directory
       run: npm run test:ci
       working-directory: ./www
