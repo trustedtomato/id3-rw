@@ -39,6 +39,8 @@ const changeTextMetadata = async (page, newMetadata) => {
   }
 }
 
+jest.setTimeout(30000);
+
 describe('ID3 Editor', () => {
   beforeAll(async () => {
     await page.goto('http://localhost:8080/id3-editor/')
