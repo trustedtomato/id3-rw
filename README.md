@@ -55,13 +55,16 @@ fetch('https://upload.wikimedia.org/wikipedia/commons/b/bd/%27Tis_a_faded_pictur
 })
 ```
 
-### Contributing
+## API
+See [generated docs](https://trustedtomato.github.io/id3-rw/).
+
+## Contributing
 Clone this repository. You should build the Rust project by running `build.sh`.
 To run the examples locally, you need to `cd` into `www`, run `npm install` then `npm start`.
 Now you should be able to access the examples at `localhost:8080`.
 
 If you have any questions, feel free to open an issue!
 
-### Acknowledgement
+## Acknowledgement
 This library uses a patched version of the [rust-id3](https://github.com/polyfloyd/rust-id3) library,
 so most of the hard work was done by its developer [polyfloyd](https://github.com/polyfloyd). Thank you!

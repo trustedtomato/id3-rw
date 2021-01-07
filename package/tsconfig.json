@@ -1,0 +1,10 @@
+{
+  "typedocOptions": {
+    "name": "id3-rw",
+    "entryPoints": ["index.d.ts"],
+    "out": "../docs"
+  },
+  "include": [
+    "."
+  ]
+}
