@@ -53,6 +53,7 @@ describe('Modifying a tag', () => {
       behavior: 'allow',
       downloadPath: path.join(__dirname, 'downloads')
     })
+    await page.waitForSelector('#metadata-editor', { visible: true })
   })
 
   it('should output the correct text metadata', async () => {
@@ -104,6 +105,7 @@ describe('Creating a tag', () => {
       behavior: 'allow',
       downloadPath: path.join(__dirname, 'downloads')
     })
+    await page.waitForSelector('#metadata-editor', { visible: true })
   })
 
   it('should change the text inputs', async () => {
