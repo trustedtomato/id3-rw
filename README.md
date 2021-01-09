@@ -26,7 +26,7 @@ fetch(url).then(async response => {
 
 ### Modifying audio metadata
 ```javascript
-import { create_tag_controller_from } from "id3-rw"
+import { create_tag_controller_from } from 'id3-rw'
 
 fetch('https://upload.wikimedia.org/wikipedia/commons/b/bd/%27Tis_a_faded_picture_by_Florrie_Forde.mp3').then(async response => {
   const stream = response.body
