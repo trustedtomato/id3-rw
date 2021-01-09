@@ -46,7 +46,7 @@ jest.setTimeout(30000)
 
 describe('Modifying a tag', () => {
   beforeAll(async () => {
-    await page.goto('http://localhost:8080/id3-editor/')
+    await page.goto('http://localhost:8080/id3-editor/', { waitUntil: 'load' })
     const upload = await page.$('#upload')
     await upload.uploadFile(mp3)
     await page._client.send('Page.setDownloadBehavior', {
@@ -98,7 +98,7 @@ describe('Modifying a tag', () => {
 
 describe('Creating a tag', () => {
   beforeAll(async () => {
-    await page.goto('http://localhost:8080/id3-editor/')
+    await page.goto('http://localhost:8080/id3-editor/', { waitUntil: 'load' })
     const upload = await page.$('#upload')
     await upload.uploadFile(mp3WithoutMetadata)
     await page._client.send('Page.setDownloadBehavior', {
