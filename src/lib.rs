@@ -173,13 +173,23 @@ impl TagController {
         }
     }
     pub fn from(buffer: &[u8]) -> Result<TagController, JsValue> {
-        id3::Tag::read_from(std::io::Cursor::new(buffer))
-            .map(|tag| {
-                TagController {
+        match id3::Tag::read_from(std::io::Cursor::new(buffer)) {
+            Ok(tag) => {
+                Ok(TagController {
                     tag
+                })
+            },
+            Err(error) => {
+                match error.kind {
+                    id3::ErrorKind::NoTag => {
+                        Ok(TagController::new())
+                    },
+                    _ => {
+                        Err(to_error(error))
+                    }
                 }
-            })
-            .map_err(to_error)
+            }
+        }
     }
     pub fn set_artist(&mut self, artist: &str) { self.tag.set_artist(artist) }
     pub fn remove_artist(&mut self) { self.tag.remove_artist() }
