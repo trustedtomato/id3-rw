@@ -47,7 +47,7 @@ async function create_tag_controller_from (stream) {
         if (!err.message.includes('UnexpectedEndOfStream')) {
           // The Error which has occurred is not due to the lack of sent data,
           // so we should propagate it.
-          console.log('NoTag')
+          throw err
         }
       }
     }
