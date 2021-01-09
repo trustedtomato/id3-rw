@@ -3,6 +3,9 @@ const path = require('path')
 
 const mp3 = path.join(__dirname, 'tis-a-faded-picture.mp3')
 const downloadedMp3 = path.join(__dirname, 'downloads', path.basename(mp3))
+const mp3WithoutMetadata = path.join(__dirname, 'tis-a-faded-picture-without-metadata.mp3')
+const downloadedMp3WithoutMetadata = path.join(__dirname, 'downloads', 'tis-a-faded-picture-without-metadata.mp3')
+
 const initialMetadata = {
   title: '\'Tis a faded picture',
   artist: 'Florrie Forde',
@@ -80,5 +83,35 @@ describe('ID3 Editor', () => {
   it('should output the modified text metadata', async () => {
     const metadata = await getTextMetadata(page)
     expect(metadata).toEqual(expect.objectContaining(changedMetadata))
+  })
+
+  it('should upload the file without a tag', async () => {
+    const upload = await page.$('#upload')
+    await upload.uploadFile(mp3WithoutMetadata)
+  })
+
+  it('should change the text inputs', async () => {
+    await changeTextMetadata(page, metadataToChange)
+    const metadata = await getTextMetadata(page)
+    expect(metadata).toEqual(expect.objectContaining(metadataToChange))
+  })
+
+  it('should download the file', async () => {
+    await page.click('#download')
+    await waitForFile(downloadedMp3WithoutMetadata)
+  })
+
+  it('should reload the page', async () => {
+    await page.reload()
+  })
+
+  it('should upload the downloaded file', async () => {
+    const upload = await page.$('#upload')
+    await upload.uploadFile(downloadedMp3WithoutMetadata)
+  })
+
+  it('should output the created text metadata', async () => {
+    const metadata = await getTextMetadata(page)
+    expect(metadata).toEqual(expect.objectContaining(metadataToChange))
   })
 })

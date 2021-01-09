@@ -167,6 +167,11 @@ fn to_error<T: ToString>(error: T) -> JsValue {
 
 #[wasm_bindgen]
 impl TagController {
+    pub fn new() -> TagController {
+        TagController {
+            tag: id3::Tag::new()
+        }
+    }
     pub fn from(buffer: &[u8]) -> Result<TagController, JsValue> {
         id3::Tag::read_from(std::io::Cursor::new(buffer))
             .map(|tag| {

@@ -11,6 +11,10 @@ function concatTypedArrays (typedArrays, Type = Uint8Array) {
 }
 
 async function create_tag_controller_from (stream) {
+  if (!stream) {
+    return id3.TagController.new()
+  }
+
   if (stream.constructor.name === 'Uint8Array') {
     return id3.TagController.from(stream)
   }
@@ -40,10 +44,14 @@ async function create_tag_controller_from (stream) {
         const tagController = id3.TagController.from(streamed)
         return tagController
       } catch (err) {
-        if (!err.message.includes('UnexpectedEndOfStream')) {
+        if (err.message.includes('NoTag')) {
+          // The stream does not have a tag in it,
+          // so we should return an empty tag's controller.
+          return id3.TagController.new()
+        } else if (!err.message.includes('UnexpectedEndOfStream')) {
           // The Error which has occurred is not due to the lack of sent data,
           // so we should propagate it.
-          throw err;
+          console.log('NoTag')
         }
       }
     }
