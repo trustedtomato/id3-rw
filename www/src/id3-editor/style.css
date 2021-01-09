@@ -10,6 +10,6 @@ li {
   margin-top: 8px;
 }
 
-#metadata-editor {
+.invisible {
   display: none;
 }

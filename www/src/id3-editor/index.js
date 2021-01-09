@@ -12,7 +12,7 @@ let currentFileName
 
 const initMetadataEditor = (tagController) => {
   // Show the metadata editor
-  metadataEditor.style.display = 'block'
+  metadataEditor.classList.remove('invisible')
 
   // Initalise metadata inputs
   const metadata = tagController.get_metadata()
@@ -89,6 +89,7 @@ uploadInput.addEventListener('input', async () => {
 
   // Free up the current tag controller
   if (currentTagControllerPromise) {
+    metadataEditor.classList.add('invisible')
     currentTagControllerPromise.then(tagController => {
       tagController.free()
     })
