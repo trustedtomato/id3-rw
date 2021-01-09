@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import * as id3 from './wasm/id3_rw'
 
 function concatTypedArrays (typedArrays, Type = Uint8Array) {
@@ -26,7 +27,6 @@ async function create_tag_controller_from (stream) {
 
   try {
     while (true) {
-
       // Read a chunk of data.
       const { value, done } = await reader.read()
 

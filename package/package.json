@@ -4,13 +4,23 @@
     "Tamas Halasi <trusted.tomato@gmail.com>"
   ],
   "scripts": {
-    "prepublishOnly": "typedoc --includeVersion"
+    "prepublishOnly": "typedoc --includeVersion",
+    "test": "eslint .",
+    "test:ci": "npm test"
   },
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.12.0",
+    "@typescript-eslint/parser": "^4.12.0",
+    "eslint": "^7.17.0",
+    "eslint-config-standard": "^16.0.2",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
     "typedoc": "^0.20.13",
     "typescript": "^4.1.3"
   },
   "version": "0.1.0",
   "module": "index.js",
-  "sideEffects": false
+  "sideEffects": false,
+  "dependencies": {}
 }
