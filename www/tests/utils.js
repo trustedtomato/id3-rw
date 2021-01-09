@@ -11,7 +11,7 @@ const waitForFile = async (path, maxTimeBetweenWrites = 500, timeBetweenExistenc
       changedSince = true
     })
 
-    while(changedSince) {
+    while (changedSince) {
       changedSince = false
       await wait(maxTimeBetweenWrites)
     }

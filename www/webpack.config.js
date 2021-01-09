@@ -1,5 +1,5 @@
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-const path = require('path');
+const CopyWebpackPlugin = require('copy-webpack-plugin')
+const path = require('path')
 
 module.exports = {
   entry: {
@@ -25,4 +25,4 @@ module.exports = {
     // see https://github.com/rustwasm/wasm-bindgen/issues/2343
     syncWebAssembly: true
   }
-};
+}

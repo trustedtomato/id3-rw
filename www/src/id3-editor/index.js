@@ -1,3 +1,4 @@
+// eslint-disable-next-line camelcase
 import { create_tag_controller_from } from 'id3-rw'
 
 const metadataInputs = document.querySelectorAll('*[data-name]')
@@ -41,7 +42,7 @@ for (const metadataInput of metadataInputs) {
     const isChanged =
       typeof metadataInput.dataset.originalValue !== 'undefined' &&
       metadataInput.dataset.originalValue !== metadataInput.value.trim()
-    
+
     metadataInput.dataset.isChanged = isChanged
     isChangedElement.style.display = isChanged ? 'inline' : 'none'
   }
@@ -56,12 +57,12 @@ const downloadBlob = (blob, fileName) => {
 
 metadataEditor.addEventListener('submit', async e => {
   e.preventDefault()
-  
+
   const [buffer, tagController] = await Promise.all([
     currentBufferPromise,
     currentTagControllerPromise
   ])
-  
+
   for (const metadataInput of metadataInputs) {
     if (metadataInput.dataset.isChanged !== 'true') {
       continue
@@ -97,12 +98,12 @@ uploadInput.addEventListener('input', async () => {
   currentTagControllerPromise = tagControllerPromise
   currentFileName = file.name
   currentBufferPromise = file.arrayBuffer().then(buffer => new Uint8Array(buffer))
-  
+
   tagControllerPromise.then(tagController => {
     // If the tagControllerPromise is not the current one,
     // then tagController is obsolete so it should not be loaded
-    // into the editor.  
-    if (tagControllerPromise !== currentTagControllerPromise) return;
+    // into the editor.
+    if (tagControllerPromise !== currentTagControllerPromise) return
     initMetadataEditor(tagController)
   })
 })

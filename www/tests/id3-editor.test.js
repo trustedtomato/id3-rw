@@ -42,9 +42,9 @@ const changeTextMetadata = async (page, newMetadata) => {
   }
 }
 
-jest.setTimeout(30000);
+jest.setTimeout(30000)
 
-describe('ID3 Editor', () => {
+describe('Modifying a tag', () => {
   beforeAll(async () => {
     await page.goto('http://localhost:8080/id3-editor/')
     const upload = await page.$('#upload')
@@ -56,61 +56,85 @@ describe('ID3 Editor', () => {
   })
 
   it('should output the correct text metadata', async () => {
+    expect.assertions(1)
     const metadata = await getTextMetadata(page)
     expect(metadata).toEqual(expect.objectContaining(initialMetadata))
   })
 
   it('should change the text inputs', async () => {
+    expect.assertions(1)
     await changeTextMetadata(page, metadataToChange)
     const metadata = await getTextMetadata(page)
     expect(metadata).toEqual(expect.objectContaining(changedMetadata))
   })
 
   it('should download the file', async () => {
+    expect.assertions(1)
     await page.click('#download')
     await waitForFile(downloadedMp3)
+    expect(true).toBe(true)
   })
 
   it('should reload the page', async () => {
+    expect.assertions(1)
     await page.reload()
+    expect(true).toBe(true)
   })
 
   it('should upload the downloaded file', async () => {
+    expect.assertions(1)
     const upload = await page.$('#upload')
     await upload.uploadFile(downloadedMp3)
+    expect(true).toBe(true)
   })
 
   it('should output the modified text metadata', async () => {
+    expect.assertions(1)
     const metadata = await getTextMetadata(page)
     expect(metadata).toEqual(expect.objectContaining(changedMetadata))
   })
+})
 
-  it('should upload the file without a tag', async () => {
+describe('Creating a tag', () => {
+  beforeAll(async () => {
+    await page.goto('http://localhost:8080/id3-editor/')
     const upload = await page.$('#upload')
     await upload.uploadFile(mp3WithoutMetadata)
+    await page._client.send('Page.setDownloadBehavior', {
+      behavior: 'allow',
+      downloadPath: path.join(__dirname, 'downloads')
+    })
   })
 
   it('should change the text inputs', async () => {
+    expect.assertions(1)
     await changeTextMetadata(page, metadataToChange)
     const metadata = await getTextMetadata(page)
     expect(metadata).toEqual(expect.objectContaining(metadataToChange))
   })
 
   it('should download the file', async () => {
+    expect.assertions(1)
     await page.click('#download')
     await waitForFile(downloadedMp3WithoutMetadata)
+    expect(true).toBe(true)
   })
 
   it('should reload the page', async () => {
+    expect.assertions(1)
     await page.reload()
+    expect(true).toBe(true)
   })
 
   it('should upload the downloaded file', async () => {
+    expect.assertions(1)
     const upload = await page.$('#upload')
     await upload.uploadFile(downloadedMp3WithoutMetadata)
+    expect(true).toBe(true)
   })
 
   it('should output the created text metadata', async () => {
+    expect.assertions(1)
     const metadata = await getTextMetadata(page)
     expect(metadata).toEqual(expect.objectContaining(metadataToChange))
   })

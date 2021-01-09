@@ -1,9 +1,10 @@
+// eslint-disable-next-line camelcase
 import { get_metadata_from } from 'id3-rw'
 
 const selectButton = document.getElementById('select')
 const trackList = document.getElementById('tracks')
 
-async function* readdir (fileHandle) {
+async function * readdir (fileHandle) {
   yield fileHandle
   if (fileHandle.kind === 'directory') {
     for await (const childFileHandle of fileHandle.values()) {
@@ -20,8 +21,8 @@ selectButton.addEventListener('click', async () => {
       const stream = await file.stream()
       const metadata = await get_metadata_from(stream)
       const trackListItem = document.createElement('div')
-      trackListItem.classList.add('track');
-      
+      trackListItem.classList.add('track')
+
       if (metadata) {
         const img = document.createElement('img')
 
@@ -35,7 +36,7 @@ selectButton.addEventListener('click', async () => {
           albumCover.free()
         }
 
-        const textMetadata = document.createElement('div');
+        const textMetadata = document.createElement('div')
 
         for (const x of [
           'title',
