@@ -7,7 +7,7 @@ Insanely quick ID3 reading & writing for JavaScript powered by WebAssembly.
 
 ### Getting metadata
 ```javascript
-import { get_metadata_from } from "id3-rw"
+import { get_metadata_from } from 'id3-rw'
 
 const url = 'https://upload.wikimedia.org/wikipedia/commons/b/bd/%27Tis_a_faded_picture_by_Florrie_Forde.mp3'
 
@@ -34,7 +34,7 @@ fetch('https://upload.wikimedia.org/wikipedia/commons/b/bd/%27Tis_a_faded_pictur
   // Note that create_tag_controller_from only reads the stream until the tag is read (not the entire file),
   // which makes it fast, but when we want to obtain the modified MP3,
   // we have to use the put_tag_into method with the full file's buffer (see below)
-  const tagController = create_tag_controller_from(stream)
+  const tagController = await create_tag_controller_from(stream)
 
   // Getting metadata using the controller API
   const metadata = tagController.get_metadata()
