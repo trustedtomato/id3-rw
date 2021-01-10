@@ -5,6 +5,7 @@
   ],
   "scripts": {
     "prepublishOnly": "typedoc --includeVersion",
+    "generateDocs": "typedoc --includeVersion",
     "test": "eslint .",
     "test:ci": "npm test"
   },

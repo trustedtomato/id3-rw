@@ -1,7 +1,7 @@
 # id3-rw
 Insanely quick ID3 reading & writing for JavaScript powered by WebAssembly.
 
-![Screenshot of id3-rw in action.](./demo-cropped.gif)
+![Screenshot of id3-rw in action.](https://raw.githubusercontent.com/trustedtomato/id3-rw/master/demo-cropped.gif)
 
 ## Usage
 
