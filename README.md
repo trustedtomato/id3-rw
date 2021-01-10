@@ -6,6 +6,9 @@ Insanely quick ID3 reading & writing for JavaScript powered by WebAssembly.
 
 ![Screenshot of id3-rw in action.](https://raw.githubusercontent.com/trustedtomato/id3-rw/master/demo-cropped.gif)
 
+## Demos
+Demos can be found on [id3-rw's website](https://trustedtomato.github.io/id3-rw/).
+
 ## Usage
 
 ### Getting metadata
@@ -59,7 +62,7 @@ fetch('https://upload.wikimedia.org/wikipedia/commons/b/bd/%27Tis_a_faded_pictur
 ```
 
 ## API
-See [generated docs](https://trustedtomato.github.io/id3-rw/).
+See [generated docs](https://trustedtomato.github.io/id3-rw/docs/).
 
 ## Contributing
 Clone this repository. You should build the Rust project by running `build.sh`.
