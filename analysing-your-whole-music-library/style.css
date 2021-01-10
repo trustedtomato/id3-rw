@@ -1,0 +1,8 @@
+.track {
+  margin-top: 8px;
+  display: flex;
+}
+.track img {
+  height: 8em;
+  margin-right: 8px;
+}

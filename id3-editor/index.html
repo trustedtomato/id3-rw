@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ID3 Editor</title>
+<link rel="stylesheet" href="style.css">
+
+<noscript>This page contains WebAssembly and JavaScript content, please enable JavaScript in your browser!</noscript>
+<script src="./bootstrap.js"></script>
+
+<h2>Choose an MP3 file!</h2>
+<input type="file" id="upload" disabled>
+
+<form id="metadata-editor" class="invisible">
+  <h2>Edit the metadata & download the new file!</h2>
+  <ul id="metadata">
+    <li><label>Title: <input data-name="title"></label></li>
+    <li><label>Artist: <input data-name="artist"></label></li>
+    <li><label>Album: <input data-name="album"></label></li>
+    <li><label>Album artist: <input data-name="album_artist"></label></li>
+    <li><label>Genre: <input data-name="genre"></label></li>
+    <li><label>Track index: <input data-name="track_index"></label></li>
+    <li><label>Track count: <input data-name="track_count"></label></li>
+    <li><label>Disc index: <input data-name="disc_index"></label></li>
+    <li><label>Disc count: <input data-name="disc_count"></label></li>
+    <li><label>Year: <input data-name="year"></label></li>
+  </ul>
+  <button id="download">Download the new file!</button>
+</form>
