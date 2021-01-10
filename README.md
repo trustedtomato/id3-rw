@@ -1,6 +1,9 @@
 # id3-rw
 Insanely quick ID3 reading & writing for JavaScript powered by WebAssembly.
 
+![Test](https://github.com/trustedtomato/id3-rw/workflows/Test/badge.svg?branch=master)
+![GitHub Pages](https://github.com/trustedtomato/id3-rw/workflows/GitHub%20Pages/badge.svg?event=push)
+
 ![Screenshot of id3-rw in action.](https://raw.githubusercontent.com/trustedtomato/id3-rw/master/demo-cropped.gif)
 
 ## Usage
