@@ -47,7 +47,8 @@ jest.setTimeout(30000)
 describe('Modifying a tag', () => {
   beforeAll(async () => {
     await page.goto('http://localhost:8080/id3-editor/', { waitUntil: 'load' })
-    const upload = await page.$('#upload')
+    await page.waitForSelector('#upload:not([disabled])')
+    const upload = await page.$('#upload:not([disabled])')
     await upload.uploadFile(mp3)
     await page._client.send('Page.setDownloadBehavior', {
       behavior: 'allow',
@@ -130,7 +131,8 @@ describe('Creating a tag', () => {
 
   it('should upload the downloaded file', async () => {
     expect.assertions(1)
-    const upload = await page.$('#upload')
+    await page.waitForSelector('#upload:not([disabled])')
+    const upload = await page.$('#upload:not([disabled])')
     await upload.uploadFile(downloadedMp3WithoutMetadata)
     expect(true).toBe(true)
   })

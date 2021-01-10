@@ -108,3 +108,5 @@ uploadInput.addEventListener('input', async () => {
     initMetadataEditor(tagController)
   })
 })
+
+uploadInput.disabled = false
