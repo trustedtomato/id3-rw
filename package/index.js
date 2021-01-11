@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 import * as id3 from './wasm/id3_rw'
 
 function concatTypedArrays (typedArrays, Type = Uint8Array) {
@@ -11,7 +10,7 @@ function concatTypedArrays (typedArrays, Type = Uint8Array) {
   return result
 }
 
-async function create_tag_controller_from (stream) {
+async function createTagControllerFrom (stream) {
   if (!stream) {
     return id3.TagController.new()
   }
@@ -58,15 +57,15 @@ async function create_tag_controller_from (stream) {
   }
 }
 
-async function get_metadata_from (stream) {
-  const tagController = await create_tag_controller_from(stream)
-  const metadata = tagController.get_metadata()
+async function getMetadataFrom (stream) {
+  const tagController = await createTagControllerFrom(stream)
+  const metadata = tagController.getMetadata()
   tagController.free()
   return metadata
 }
 
 export {
-  get_metadata_from,
-  create_tag_controller_from
+  getMetadataFrom,
+  createTagControllerFrom
 }
 export * from './wasm/id3_rw'

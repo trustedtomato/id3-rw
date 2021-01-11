@@ -1,5 +1,5 @@
 // eslint-disable-next-line camelcase
-import { get_metadata_from } from 'id3-rw'
+import { getMetadataFrom } from 'id3-rw'
 
 const selectButton = document.getElementById('select')
 const trackList = document.getElementById('tracks')
@@ -19,18 +19,18 @@ selectButton.addEventListener('click', async () => {
     if (entry.kind === 'file') {
       const file = await entry.getFile()
       const stream = await file.stream()
-      const metadata = await get_metadata_from(stream)
+      const metadata = await getMetadataFrom(stream)
       const trackListItem = document.createElement('div')
       trackListItem.classList.add('track')
 
       if (metadata) {
         const img = document.createElement('img')
 
-        const albumCover = metadata.album_cover
+        const albumCover = metadata.albumCover
         if (albumCover) {
           img.src = URL.createObjectURL(
             new Blob([albumCover.data.buffer]),
-            { type: albumCover.mime_type }
+            { type: albumCover.mimeType }
           )
           trackListItem.appendChild(img)
           albumCover.free()
@@ -42,7 +42,7 @@ selectButton.addEventListener('click', async () => {
           'title',
           'artist',
           'album',
-          'album_artist',
+          'albumArtist',
           'year'
         ]) {
           const text = document.createElement('div')

@@ -5,7 +5,7 @@ export * from './wasm/id3_rw'
  * Gets the ID3 metadata from the specified buffer or stream.
  * Basically calls `create_tag_controller`, gets the metadata and frees up the `TagController`.
  */
-export declare function get_metadata_from (streamOrBuffer: ReadableStream<Uint8Array> | Uint8Array): Promise<Metadata>
+export declare function getMetadataFrom (streamOrBuffer: ReadableStream<Uint8Array> | Uint8Array): Promise<Metadata>
 
 /**
  * Creates a tag controller from the tag of the specified buffer or stream.
@@ -14,4 +14,4 @@ export declare function get_metadata_from (streamOrBuffer: ReadableStream<Uint8A
  * Additionally, if there is no tag there or you call the function without arguments,
  * the function returns an empty tag.
  */
-export declare function create_tag_controller_from (streamOrBuffer: ReadableStream<Uint8Array> | Uint8Array): Promise<TagController>
+export declare function createTagControllerFrom (streamOrBuffer: ReadableStream<Uint8Array> | Uint8Array): Promise<TagController>

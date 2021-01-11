@@ -68,6 +68,7 @@ pub struct AlbumCoverMetadatum {
 #[wasm_bindgen]
 impl AlbumCoverMetadatum {
     #[wasm_bindgen(getter)]
+    #[wasm_bindgen(js_name = mimeType)]
     pub fn mime_type(&self) -> String {
         self.mime_type.to_owned()
     }
@@ -86,9 +87,13 @@ pub struct Metadata {
     album: Option<String>,
     album_artist: Option<String>,
     genre: Option<String>,
+    #[wasm_bindgen(js_name = trackIndex)]
     pub track_index: Option<u32>,
+    #[wasm_bindgen(js_name = trackCount)]
     pub track_count: Option<u32>,
+    #[wasm_bindgen(js_name = discIndex)]
     pub disc_index: Option<u32>,
+    #[wasm_bindgen(js_name = discCount)]
     pub disc_count: Option<u32>,
     pub year: Option<i32>,
     date_recorded: Option<id3::Timestamp>,
@@ -115,6 +120,7 @@ impl Metadata {
         self.album.to_owned()
     }
     #[wasm_bindgen(getter)]
+    #[wasm_bindgen(js_name = albumArtist)]
     pub fn album_artist(&self) -> Option<String> {
         self.album_artist.to_owned()
     }
@@ -123,12 +129,14 @@ impl Metadata {
         self.genre.to_owned()
     }
     #[wasm_bindgen(getter)]
+    #[wasm_bindgen(js_name = dateRecorded)]
     pub fn date_recorded(&self) -> Option<String> {
         self.date_recorded.map(|x| {
             x.to_string()
         })
     }
     #[wasm_bindgen(getter)]
+    #[wasm_bindgen(js_name = dateReleased)]
     pub fn date_released(&self) -> Option<String> {
         self.date_released.map(|x| {
             x.to_string()
@@ -152,6 +160,7 @@ impl Metadata {
             .collect()
     }
     #[wasm_bindgen(getter)]
+    #[wasm_bindgen(js_name = albumCover)]
     pub fn album_cover(&self) -> Option<AlbumCoverMetadatum> {
         self.album_cover.to_owned()
     }
@@ -191,27 +200,48 @@ impl TagController {
             }
         }
     }
+    #[wasm_bindgen(js_name = setArtist)]
     pub fn set_artist(&mut self, artist: &str) { self.tag.set_artist(artist) }
+    #[wasm_bindgen(js_name = removeArtist)]
     pub fn remove_artist(&mut self) { self.tag.remove_artist() }
+    #[wasm_bindgen(js_name = setTitle)]
     pub fn set_title(&mut self, title: &str) { self.tag.set_title(title) }
+    #[wasm_bindgen(js_name = removeTitle)]
     pub fn remove_title(&mut self) { self.tag.remove_title() }
+    #[wasm_bindgen(js_name = setAlbum)]
     pub fn set_album(&mut self, album: &str) { self.tag.set_album(album) }
+    #[wasm_bindgen(js_name = removeAlbum)]
     pub fn remove_album(&mut self) { self.tag.remove_album() }
+    #[wasm_bindgen(js_name = setAlbumArtist)]
     pub fn set_album_artist(&mut self, album_artist: &str) { self.tag.set_album_artist(album_artist) }
+    #[wasm_bindgen(js_name = removeAlbumArtist)]
     pub fn remove_album_artist(&mut self) { self.tag.remove_album_artist() }
+    #[wasm_bindgen(js_name = setGenre)]
     pub fn set_genre(&mut self, genre: &str) { self.tag.set_genre(genre) }
+    #[wasm_bindgen(js_name = removeGenre)]
     pub fn remove_genre(&mut self) { self.tag.remove_genre() }
+    #[wasm_bindgen(js_name = setTrackIndex)]
     pub fn set_track_index(&mut self, track_index: u32) { self.tag.set_track(track_index) }
+    #[wasm_bindgen(js_name = removeTrackIndex)]
     pub fn remove_track_index(&mut self) { self.tag.remove_track() }
+    #[wasm_bindgen(js_name = setTrackCount)]
     pub fn set_track_count(&mut self, track_count: u32) { self.tag.set_total_tracks(track_count) }
+    #[wasm_bindgen(js_name = removeTrackCount)]
     pub fn remove_track_count(&mut self) { self.tag.remove_total_tracks() }
+    #[wasm_bindgen(js_name = setDiscIndex)]
     pub fn set_disc_index(&mut self, disc_index: u32) { self.tag.set_disc(disc_index) }
+    #[wasm_bindgen(js_name = removeDiscIndex)]
     pub fn remove_disc_index(&mut self) { self.tag.remove_disc() }
+    #[wasm_bindgen(js_name = setDiscCount)]
     pub fn set_disc_count(&mut self, disc_count: u32) { self.tag.set_total_discs(disc_count) }
+    #[wasm_bindgen(js_name = removeDiscCount)]
     pub fn remove_disc_count(&mut self) { self.tag.remove_total_discs() }
+    #[wasm_bindgen(js_name = setYear)]
     pub fn set_year(&mut self, year: i32) { self.tag.set_year(year) }
+    #[wasm_bindgen(js_name = removeYear)]
     pub fn remove_year(&mut self) { self.tag.remove("TYER") }
     /// yyyy-MM-ddTHH:mm:ss
+    #[wasm_bindgen(js_name = setDateRecorded)]
     pub fn set_date_recorded(&mut self, timestamp: &str) -> Result<(), JsValue> {
         id3::Timestamp::from_str(timestamp)
             .map(|timestamp| {
@@ -219,6 +249,7 @@ impl TagController {
             })
             .map_err(to_error)
     }
+    #[wasm_bindgen(js_name = setDateReleased)]
     pub fn set_date_released(&mut self, timestamp: &str) -> Result<(), JsValue> {
         id3::Timestamp::from_str(timestamp)
             .map(|timestamp| {
@@ -226,19 +257,15 @@ impl TagController {
             })
             .map_err(to_error)
     }
+    #[wasm_bindgen(js_name = setDuration)]
     pub fn set_duration(&mut self, duration_in_seconds: u32) { self.tag.set_duration(duration_in_seconds) }
+    #[wasm_bindgen(js_name = setPublisher)]
     pub fn set_publisher(&mut self, publisher: String) {
         self.tag.set_text("TPUB", publisher);
-    }    
-    pub fn get_uint8array(&self) -> Option<js_sys::Uint8Array> {
-        let mut vec: Vec<u8> = Vec::new();
-        match self.tag.write_to(&mut vec, id3::Version::Id3v24) {
-            Ok(_) => Some(js_sys::Uint8Array::from(&vec[..])),
-            Err(_) => None
-        }
     }
     /// Puts the tag into the buffer and returns the new buffer.
     /// Not-in-place method. 
+    #[wasm_bindgen(js_name = putTagInto)]
     pub fn put_tag_into(&self, buffer: &[u8]) -> Result<js_sys::Uint8Array, JsValue> {
         let mut cursor = std::io::Cursor::new(buffer.to_vec());
         id3::Tag::write_to_with_base(&self.tag, &mut cursor, id3::Version::Id3v24)
@@ -247,6 +274,7 @@ impl TagController {
             })
             .map_err(to_error)
     }
+    #[wasm_bindgen(js_name = addLyrics)]
     pub fn add_lyrics(&mut self, lyrics: CommentMetadatum) {
         self.tag.add_lyrics(id3::frame::Lyrics {
             description: lyrics.description,
@@ -254,6 +282,7 @@ impl TagController {
             text: lyrics.text
         });
     }
+    #[wasm_bindgen(js_name = getMetadata)]
     pub fn get_metadata(&self) -> Metadata {
         Metadata {
             artist: self.tag.artist().map(String::from),

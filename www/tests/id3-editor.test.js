@@ -14,12 +14,12 @@ const initialMetadata = {
 const metadataToChange = {
   title: 'Modified title',
   album: 'Modified album',
-  album_artist: 'Modified album artist',
+  albumArtist: 'Modified album artist',
   genre: 'Modified genre',
-  track_index: '1',
-  track_count: '2',
-  disc_index: '3',
-  disc_count: '4',
+  trackIndex: '1',
+  trackCount: '2',
+  discIndex: '3',
+  discCount: '4',
   year: '2012'
 }
 const changedMetadata = Object.assign({}, initialMetadata, metadataToChange)

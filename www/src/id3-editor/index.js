@@ -1,5 +1,5 @@
 // eslint-disable-next-line camelcase
-import { create_tag_controller_from } from 'id3-rw'
+import { createTagControllerFrom } from 'id3-rw'
 
 const metadataInputs = document.querySelectorAll('*[data-name]')
 const metadataEditor = document.getElementById('metadata-editor')
@@ -10,12 +10,17 @@ let currentBufferPromise
 let currentTagControllerPromise
 let currentFileName
 
+const capitalize = str =>
+  str === ''
+    ? ''
+    : str[0].toUpperCase() + str.slice(1)
+
 const initMetadataEditor = (tagController) => {
   // Show the metadata editor
   metadataEditor.classList.remove('invisible')
 
   // Initalise metadata inputs
-  const metadata = tagController.get_metadata()
+  const metadata = tagController.getMetadata()
   for (const metadataInput of metadataInputs) {
     const value = String(metadata[metadataInput.dataset.name] || '').trim()
     metadataInput.dataset.originalValue = value
@@ -69,15 +74,15 @@ metadataEditor.addEventListener('submit', async e => {
     }
     const value = metadataInput.value.trim()
     if (value === '') {
-      tagController['remove_' + metadataInput.dataset.name](value)
+      tagController['remove' + capitalize(metadataInput.dataset.name)](value)
     } else {
-      tagController['set_' + metadataInput.dataset.name](value)
+      tagController['set' + capitalize(metadataInput.dataset.name)](value)
     }
   }
 
   downloadBlob(
     new Blob([
-      tagController.put_tag_into(buffer)
+      tagController.putTagInto(buffer)
     ]),
     currentFileName
   )
@@ -95,7 +100,7 @@ uploadInput.addEventListener('input', async () => {
     })
   }
 
-  const tagControllerPromise = create_tag_controller_from(file.stream())
+  const tagControllerPromise = createTagControllerFrom(file.stream())
   currentTagControllerPromise = tagControllerPromise
   currentFileName = file.name
   currentBufferPromise = file.arrayBuffer().then(buffer => new Uint8Array(buffer))
