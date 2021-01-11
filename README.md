@@ -13,13 +13,13 @@ Demos can be found on [id3-rw's website](https://trustedtomato.github.io/id3-rw/
 
 ### Getting metadata
 ```javascript
-import { get_metadata_from } from 'id3-rw'
+import { getMetadataFrom } from 'id3-rw'
 
 const url = 'https://upload.wikimedia.org/wikipedia/commons/b/bd/%27Tis_a_faded_picture_by_Florrie_Forde.mp3'
 
 fetch(url).then(async response => {
   const stream = response.body
-  const metadata = await get_metadata_from(stream)
+  const metadata = await getMetadataFrom(stream)
   console.log(metadata)
   // → { artist: "Florrie Forde", title: "'Tis a faded picture", album: "Edison Amberol: 12255" }
 
@@ -32,29 +32,25 @@ fetch(url).then(async response => {
 
 ### Modifying audio metadata
 ```javascript
-import { create_tag_controller_from } from 'id3-rw'
+import { createTagControllerFrom } from 'id3-rw'
 
 fetch('https://upload.wikimedia.org/wikipedia/commons/b/bd/%27Tis_a_faded_picture_by_Florrie_Forde.mp3').then(async response => {
-  const stream = response.body
+  const buffer = new Uint8Array(await response.arrayBuffer())
 
-  // Note that create_tag_controller_from only reads the stream until the tag is read (not the entire file),
-  // which makes it fast, but when we want to obtain the modified MP3,
-  // we have to use the put_tag_into method with the full file's buffer (see below)
-  const tagController = await create_tag_controller_from(stream)
+  const tagController = await createTagControllerFrom(buffer)
 
   // Getting metadata using the controller API
-  const metadata = tagController.get_metadata()
+  const metadata = tagController.getMetadata()
   console.log(metadata)
   // → { artist: "Florrie Forde", title: "'Tis a faded picture", album: "Edison Amberol: 12255" }
   metadata.free()
 
   // Changing the metadata
-  tagController.set_year(1910)
+  tagController.setYear(1910)
 
   // Getting the resulting Uint8Array (the tagged file's buffer),
   // which can be used with the File System API or for a download
-  const buffer = new Uint8Array(await response.arrayBuffer())
-  const taggedBuffer = tagController.put_tag_into(buffer)
+  const taggedBuffer = tagController.putTagInto(buffer)
 
   // IMPORTANT! Don't forget to destroy the tagController!
   tagController.free()
