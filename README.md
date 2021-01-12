@@ -17,11 +17,14 @@ import { getMetadataFrom } from 'id3-rw'
 
 const url = 'https://upload.wikimedia.org/wikipedia/commons/b/bd/%27Tis_a_faded_picture_by_Florrie_Forde.mp3'
 
-fetch(url).then(async response => {
+await fetch(url).then(async response => {
   const stream = response.body
   const metadata = await getMetadataFrom(stream)
-  console.log(metadata)
-  // → { artist: "Florrie Forde", title: "'Tis a faded picture", album: "Edison Amberol: 12255" }
+  expectToContain(metadata, {
+    artist: "Florrie Forde\r",
+    title: "'Tis a faded picture\r",
+    album: "Edison Amberol: 12255\r"
+  })
 
   // IMPORTANT! Always remember to destroy the metadata
   // after you've got the properties you need,
@@ -34,15 +37,18 @@ fetch(url).then(async response => {
 ```javascript
 import { createTagControllerFrom } from 'id3-rw'
 
-fetch('https://upload.wikimedia.org/wikipedia/commons/b/bd/%27Tis_a_faded_picture_by_Florrie_Forde.mp3').then(async response => {
+await fetch('https://upload.wikimedia.org/wikipedia/commons/b/bd/%27Tis_a_faded_picture_by_Florrie_Forde.mp3').then(async response => {
   const buffer = new Uint8Array(await response.arrayBuffer())
 
   const tagController = await createTagControllerFrom(buffer)
 
   // Getting metadata using the controller API
   const metadata = tagController.getMetadata()
-  console.log(metadata)
-  // → { artist: "Florrie Forde", title: "'Tis a faded picture", album: "Edison Amberol: 12255" }
+  expectToContain(metadata, {
+    artist: 'Florrie Forde\r',
+    title: '\'Tis a faded picture\r',
+    album: 'Edison Amberol: 12255\r'
+  })
   metadata.free()
 
   // Changing the metadata
@@ -51,6 +57,7 @@ fetch('https://upload.wikimedia.org/wikipedia/commons/b/bd/%27Tis_a_faded_pictur
   // Getting the resulting Uint8Array (the tagged file's buffer),
   // which can be used with the File System API or for a download
   const taggedBuffer = tagController.putTagInto(buffer)
+  expectToEqual(taggedBuffer.length > 0, true)
 
   // IMPORTANT! Don't forget to destroy the tagController!
   tagController.free()

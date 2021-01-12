@@ -4,7 +4,8 @@ const path = require('path')
 module.exports = {
   entry: {
     'analysing-your-whole-music-library/bootstrap': './src/analysing-your-whole-music-library/bootstrap.js',
-    'id3-editor/bootstrap': './src/id3-editor/bootstrap.js'
+    'id3-editor/bootstrap': './src/id3-editor/bootstrap.js',
+    'for-testing/bootstrap': './src/for-testing/bootstrap.js'
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
