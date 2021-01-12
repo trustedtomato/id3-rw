@@ -6,7 +6,15 @@
 <link rel="stylesheet" href="style.css">
 
 <noscript>This page contains WebAssembly and JavaScript content, please enable JavaScript in your browser!</noscript>
-<script src="./bootstrap.js"></script>
-<button id="select">Select the directory where your music lays!</button>
-<div id="tracks">
+<div id="file-system-access-api-unsupported" class="invisible">
+  File System Access API is not supported in your browser!
+  See <a href="https://caniuse.com/native-filesystem-api">Can I use</a> to check which browsers have support. 
 </div>
+
+<main class="invisible">
+  <button id="select">Select the directory where your music lays!</button>
+  <div id="tracks">
+  </div>
+</main>
+
+<script src="./bootstrap.js"></script>
