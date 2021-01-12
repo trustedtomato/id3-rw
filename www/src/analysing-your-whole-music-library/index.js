@@ -1,4 +1,3 @@
-// eslint-disable-next-line camelcase
 import { getMetadataFrom } from 'id3-rw'
 
 const selectButton = document.getElementById('select')

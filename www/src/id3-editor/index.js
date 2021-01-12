@@ -1,4 +1,3 @@
-// eslint-disable-next-line camelcase
 import { createTagControllerFrom } from 'id3-rw'
 
 const metadataInputs = document.querySelectorAll('*[data-name]')
