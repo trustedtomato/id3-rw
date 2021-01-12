@@ -6,3 +6,7 @@
   height: 8em;
   margin-right: 8px;
 }
+
+.invisible {
+  display: none;
+}

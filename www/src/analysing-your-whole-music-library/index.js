@@ -1,5 +1,14 @@
 import { getMetadataFrom } from 'id3-rw'
 
+// Check whether the browser supports the required APIs.
+if (typeof window.showDirectoryPicker !== 'function') {
+  document.getElementById('file-system-access-api-unsupported').classList.remove('invisible')
+  throw new Error('window.showDirectoryPicker is not a function!')
+}
+
+// All the features we need, let's make main visible!
+document.querySelector('main').classList.remove('invisible')
+
 const selectButton = document.getElementById('select')
 const trackList = document.getElementById('tracks')
 
