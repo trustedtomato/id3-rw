@@ -10,6 +10,8 @@ const snippets = [...readme.matchAll(/```javascript([\s\S]*?)```/g)]
     .replace(/import\s+{(.+?)}\s+from 'id3-rw'/g, (_, toDestruct) => `const {${toDestruct}} = window.id3`)
   )
 
+jest.setTimeout(30000)
+
 describe('README snippets', () => {
   beforeAll(async () => {
     await page.goto('http://localhost:8080/for-testing/', { waitUntil: 'load' })
