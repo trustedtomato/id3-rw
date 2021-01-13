@@ -28,5 +28,6 @@
   "module": "index.js",
   "license": "MIT",
   "sideEffects": false,
+  "keywords": ["id3", "read", "write", "audio", "metadata", "id3v2"],
   "dependencies": {}
 }
