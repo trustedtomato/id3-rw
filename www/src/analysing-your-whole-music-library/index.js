@@ -27,7 +27,7 @@ selectButton.addEventListener('click', async () => {
     if (entry.kind === 'file') {
       const file = await entry.getFile()
       const stream = await file.stream()
-      const metadata = await getMetadataFrom(stream)
+      const metadata = await getMetadataFrom(stream).catch(() => null)
       const trackListItem = document.createElement('div')
       trackListItem.classList.add('track')
 
