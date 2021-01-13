@@ -5,7 +5,7 @@
     "Tamas Halasi <trusted.tomato@gmail.com>"
   ],
   "scripts": {
-    "preversion": "cd .. && make setup && make test",
+    "preversion": "cd .. && git diff --exit-code && git diff --cached --exit-code && make setup && make test",
     "version": "cd .. && make setup && git add . && git commit -m \"version: Bump version to $npm_package_version \" && git tag -a v$npm_package_version -m \"Bump version to $npm_package_version \"",
     "postversion": "git push && git push --tags && npm publish",
     "generateDocs": "typedoc --includeVersion",
