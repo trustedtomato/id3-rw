@@ -5,8 +5,8 @@
     "Tamas Halasi <trusted.tomato@gmail.com>"
   ],
   "scripts": {
-    "preversion": "cd .. && make test",
-    "version": "cd .. && git add . && git commit -m \"version: Bump version to $npm_package_version \" && git tag -a v$npm_package_version -m \"Bump version to $npm_package_version \" && cd package",
+    "preversion": "cd .. && make setup && make test",
+    "version": "cd .. && make setup && git add . && git commit -m \"version: Bump version to $npm_package_version \" && git tag -a v$npm_package_version -m \"Bump version to $npm_package_version \"",
     "postversion": "git push && git push --tags && npm publish",
     "generateDocs": "typedoc --includeVersion",
     "kaka": "echo v$npm_package_version",
@@ -24,7 +24,7 @@
     "typedoc": "^0.20.13",
     "typescript": "^4.1.3"
   },
-  "version": "1.0.6",
+  "version": "1.0.7",
   "module": "index.js",
   "license": "MIT",
   "sideEffects": false,
