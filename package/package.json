@@ -6,9 +6,10 @@
   ],
   "scripts": {
     "preversion": "cd .. && make test",
-    "version": "cd .. && make build && cd package && npm publish",
-    "postversion": "git push && git push --tags",
+    "version": "cd .. && git add . && git commit -m \"version: Bump version to $npm_package_version \" && git tag -a v$npm_package_version -m \"Bump version to $npm_package_version \" && cd package",
+    "postversion": "git push && git push --tags && npm publish",
     "generateDocs": "typedoc --includeVersion",
+    "kaka": "echo v$npm_package_version",
     "test": "eslint .",
     "test:ci": "npm test"
   },
@@ -23,7 +24,7 @@
     "typedoc": "^0.20.13",
     "typescript": "^4.1.3"
   },
-  "version": "0.1.0",
+  "version": "1.0.4",
   "module": "index.js",
   "sideEffects": false,
   "dependencies": {}
