@@ -26,6 +26,7 @@
   },
   "version": "1.0.6",
   "module": "index.js",
+  "license": "MIT",
   "sideEffects": false,
   "dependencies": {}
 }
