@@ -1,10 +1,13 @@
 {
   "name": "id3-rw",
+  "description": "Insanely quick ID3 reading & writing for JavaScript powered by WebAssembly.",
   "collaborators": [
     "Tamas Halasi <trusted.tomato@gmail.com>"
   ],
   "scripts": {
-    "prepublishOnly": "typedoc --includeVersion",
+    "preversion": "cd .. && make test",
+    "version": "cd .. && make build && npm publish",
+    "postversion": "git push && git push --tags",
     "generateDocs": "typedoc --includeVersion",
     "test": "eslint .",
     "test:ci": "npm test"
