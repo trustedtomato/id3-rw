@@ -6,7 +6,7 @@
   ],
   "scripts": {
     "preversion": "cd .. && make test",
-    "version": "cd .. && make build && npm publish",
+    "version": "cd .. && make build && cd package && npm publish",
     "postversion": "git push && git push --tags",
     "generateDocs": "typedoc --includeVersion",
     "test": "eslint .",
