@@ -36,5 +36,11 @@
     "metadata",
     "id3v2"
   ],
+  "files": [
+    "index.js", "index.d.ts",
+    "wasm/id3_rw.js", "wasm/id3_rw.d.ts",
+    "wasm/id3_rw_bg.js",
+    "wasm/id3_rw_bg.wasm", "wasm/id3_rw_bg.wasm.d.ts"
+  ],
   "dependencies": {}
 }
