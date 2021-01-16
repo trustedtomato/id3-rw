@@ -68,8 +68,8 @@ await fetch('https://upload.wikimedia.org/wikipedia/commons/b/bd/%27Tis_a_faded_
 See [generated docs](https://trustedtomato.github.io/id3-rw/docs/).
 
 ## Contributing
-Clone this repository. You should build the Rust project by running `build.sh`.
-To run the examples locally, you need to `cd` into `www`, run `npm install` then `npm start`.
+Clone this repository. You should setup & build the Rust project by running `make setup` and `make build`.
+To run the examples locally, you need to `cd` into `www` and run `npm start`.
 Now you should be able to access the examples at `localhost:8080`.
 
 If you have any questions, feel free to open an issue!
